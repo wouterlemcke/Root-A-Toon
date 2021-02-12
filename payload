@@ -10,12 +10,13 @@ init q
 if grep -q nxt /etc/opkg/arch.conf 2>/dev/null
 then
 	echo "Detected NXT device, installing dropbear and setting password"
-	wget http://qutility.nl/dropbear_2014.66-r0_cortexa9hf-vfp-neon.ipk -O /tmp/dropbear_2014.66-r0_cortexa9hf-vfp-neon.ipk >> /qmf/www/rsrc/log
+	curl -Nks https://raw.githubusercontent.com/ToonSoftwareCollective/Root-A-Toon/master/dropbear_2014.66-r0_cortexa9hf-vfp-neon.ipk -o /tmp/dropbear_2014.66-r0_cortexa9hf-vfp-neon.ipk >> /qmf/www/rsrc/log
 	opkg install /tmp/dropbear_2014.66-r0_cortexa9hf-vfp-neon.ipk >> /qmf/www/rsrc/log
 	sed -i 's/root:DISABLED/root:FTR0zlZvsHEF2/' /etc/shadow
 else
 	echo "Detected QB2 device, installing dropbear and setting password" >> /qmf/www/rsrc/log
-	opkg install --nodeps http://qutility.nl/dropbear_2015.71-r0_qb2.ipk >> /qmf/www/rsrc/log 
+	curl -Nks https://raw.githubusercontent.com/ToonSoftwareCollective/Root-A-Toon/master/dropbear_2015.71-r0_qb2.ipk -o /tmp/dropbear_2015.71-r0_qb2.ipk >> /qmf/www/rsrc/log
+	opkg install /tmp/dropbear_2015.71-r0_qb2.ipk >> /qmf/www/rsrc/log
 	sed -i 's/root:DISABLED/root:FTR0zlZvsHEF2/' /etc/passwd
 fi
 /etc/init.d/iptables restart >> /qmf/www/rsrc/log
