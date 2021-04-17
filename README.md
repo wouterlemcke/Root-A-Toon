@@ -28,6 +28,10 @@ The next step for the script is to open a listen port (by using netcat) on port 
 ## It is not working on my 5.xx.100 firmware toon
 These devices are linked to a new service center in the AWS IOT cloud. It is a test group as we speak which contains about 10% toon2's and 30% toon1's. Rooting these devices with this firmware installed is not always working correctly. Best is to fall back to toon1 old-fashioned rooting with the ToonRooter script and for the toon2 first perform a recovery of the firmware to the factory default firmware which from there you can use this tool.
 
+### Toon 2 recovery procedure
+You have to press the reset button at the bottom of the screen. Keep it pressed while you reboot the toon. After a few seconds you will enter the recovery mode. Press anywhere on the screen to start the recovery flashing while still keeping the reset button pressed. When the recovery flashing has been completed (it is quite fast) you will see a message that the Toon will reboot in 3 seconds. You can then release the reset button and you will be on version 4.9.
+Don't release the reset button while flashing is still busy because the Toon will restart rightaway.
+
 ## What if my Toon needs to be activated first?
 Without an activated toon you will not be able to root it using this script as you are unable to start the check for new software process. As rooted toons are not connected to the official service portal an activation should not be necesssary also. Only, there is currently no official way to activate a toon without contacting a supplier (like Eneco NL or Engie Belgium). A common method used by some rooted Toon owners is just to activate a toon with an official subscription and then end that subscription within a week so you don't pay anything.
 
