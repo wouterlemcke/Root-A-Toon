@@ -3,10 +3,6 @@
 echo "Rooting your toon" > /qmf/www/rsrc/log
 echo "Patching firewall" >> /qmf/www/rsrc/log
 sed -i 's/^#-A/-A/' /etc/default/iptables.conf 2>&1 >> /qmf/www/rsrc/log
-echo "Disabling VPN" >> /qmf/www/rsrc/log
-sed -i 's~ovpn:235~#ovpn:235~g' /etc/inittab 2>&1 >> /qmf/www/rsrc/log
-#restart init (to disable openvpn)
-init q
 if grep -q nxt /etc/opkg/arch.conf 2>/dev/null
 then
 	echo "Detected NXT device, installing dropbear and setting password"
