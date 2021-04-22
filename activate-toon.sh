@@ -68,6 +68,10 @@ then
   echo "Ok sending the reponse for the activation request"
   echo -e $TOSEND > /tmp/pipe.out
   DONE=true
+elif [[ $line = *"token"* ]]
+then
+  echo "This is not a activation request."
+  echo "" > /tmp/pipe.out
 fi
   
 done < /tmp/pipe.in

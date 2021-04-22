@@ -75,27 +75,30 @@ cat /tmp/pipe.out | nc -q 0 -Nl 31080 | tee /tmp/pipe.in &
 
 while read line
 do
-echo $LINE
-if [[ $line = *"action class"* ]]
-then
-  COMMONNAME=`echo $line | sed 's/.* commonname="\(.*\)".*/\1/'`
-  UUID="$COMMONNAME:hcb_config" 
-  REQUESTID=`echo $line | sed 's/.* requestid="\(.*\)" .*/\1/'`
-  TOSEND=`echo $RESPONSE | sed "s/_REQUESTID_/$REQUESTID/" | sed "s/_DESTCOMMONNAME_/$COMMONNAME/" | sed "s/_DESTUUID_/$UUID/" `
-fi
-if [[ $line = *"<u:GetUpgrade"* ]]
-then
-  echo "Received valid update request. Sending the reponse for the upgrade request and starting payload process in background"
-  timeout 80 bash -c "echo '$PAYLOAD' | nc -q 2 -Nl 1.0.0.1 80 " &
-  PAYLOAD_PID=$!
-  echo -e $TOSEND > /tmp/pipe.out
-  DONE=true
-elif [[ $line = *"<u:"* ]]
-then
-  echo "This is not a update request."
-  echo "" > /tmp/pipe.out
-fi
-  
+  echo $LINE
+  if [[ $line = *"action class"* ]]
+  then
+    COMMONNAME=`echo $line | sed 's/.* commonname="\(.*\)".*/\1/'`
+    UUID="$COMMONNAME:hcb_config" 
+    REQUESTID=`echo $line | sed 's/.* requestid="\(.*\)" .*/\1/'`
+    TOSEND=`echo $RESPONSE | sed "s/_REQUESTID_/$REQUESTID/" | sed "s/_DESTCOMMONNAME_/$COMMONNAME/" | sed "s/_DESTUUID_/$UUID/" `
+  fi
+  if [[ $line = *"<u:GetUpgrade"* ]]
+  then
+    echo "Received valid update request. Sending the reponse for the upgrade request and starting payload process in background"
+    timeout 80 bash -c "echo '$PAYLOAD' | nc -q 2 -Nl 1.0.0.1 80 " &
+    PAYLOAD_PID=$!
+    echo -e $TOSEND > /tmp/pipe.out
+    DONE=true
+  elif [[ $line = *"<u:"* ]]
+  then
+    echo "This is not a update request."
+    echo "" > /tmp/pipe.out
+  elif [[ $line = *"token"* ]]
+  then
+    echo "This is not a update request."
+    echo "" > /tmp/pipe.out
+  fi
 done < /tmp/pipe.in
 
 done
