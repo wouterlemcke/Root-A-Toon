@@ -22,7 +22,7 @@ read QUESTION
 echo "Blocking all HTTPS (and therefore Toon VPN). Now we wait until the Toon disconnects the VPN and sends traffic towards the service center on the wifi. After a minute or so start the activation (use a random activation code and retry until it succeeds. Don't go back to the home activation screen."
 /sbin/iptables -I FORWARD -p tcp --dport 443 -j DROP
 
-OUTPUT=`/usr/sbin/tcpdump -n -i wlan0 dst net 172.16.0.0/12 -c 1 2>/dev/null` || exit "tcpdump failed"
+OUTPUT=`/usr/sbin/tcpdump -n -i any port 31080 -c 1 2>/dev/null` || exit "tcpdump failed"
 IP=`echo $OUTPUT | cut -d\  -f5 | cut -d\. -f1,2,3,4`
 
 
