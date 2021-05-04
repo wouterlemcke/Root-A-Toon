@@ -38,7 +38,6 @@ fi
 echo "Blocking all HTTPS (and therefore Toon VPN). Reboot your toon now. And after that press the 'software' button on your Toon."
 /sbin/iptables -I FORWARD -p tcp --dport 443 -j DROP
 
-#OUTPUT=`/usr/sbin/tcpdump -n -i any dst net 172.16.0.0/12  and port 31080 -c 1 2>/dev/null` || exit "tcpdump failed"
 OUTPUT=`/usr/sbin/tcpdump -n -i any port 31080 -c 1 2>/dev/null` || exit "tcpdump failed"
 TOONIP=`echo $OUTPUT | cut -d\  -f3 | cut -d\. -f1,2,3,4`
 IP=`echo $OUTPUT | cut -d\  -f5 | cut -d\. -f1,2,3,4`
