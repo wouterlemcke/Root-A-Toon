@@ -25,7 +25,7 @@ The script intercepts Toon traffic as it is trying to create a VPN connection to
 
 The next step for the script is to open a listen port (by using netcat) on port 31080 (the service center port) on the just learned service center IP address. The effect is that the Toon will simulate to be the servicecenter. Next, the user is requested to press the 'software' button on the Toon which in turn will cause the Toon to request the servicecenter if there is a software update available. This request is received by the script and a answer is given to the Toon with a hidden 'curl 1.1|sh' command within the 'new' version number. A bug in the Toon software which should download the version of the new software will run this hidden command. This will initiate a shell command on the Toon to download the payload from the machine running the script. Once the payload is downloaded by the Toon, this payload script will do the rest.
 
-## It is not working on my 5.xx.100 firmware toon
+## It is not working on my 5.xx.100 and 6.x.x firmware toon
 These devices are linked to a new service center in the AWS IOT cloud. It is a test group as we speak which contains about 10% toon2's and 30% toon1's. Rooting these devices with this firmware installed is not always working correctly. Best is to fall back to toon1 old-fashioned rooting with the ToonRooter script and for the toon2 first perform a recovery of the firmware to the factory default firmware which from there you can use this tool.
 
 ### Toon 2 recovery procedure
